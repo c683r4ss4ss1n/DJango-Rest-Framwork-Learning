@@ -8,7 +8,7 @@ venv/Scripts/activate
 pip install django djangorestframework
 
 ## Create a project
-django-admin startproject myproject 
+django-admin startproject myproject .
 
 ## Create an app
 python manage.py startapp firstapp
