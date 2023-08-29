@@ -5,6 +5,8 @@ from django.contrib import admin
 from firstapp.views import homeView
 from rest_framework.authtoken.views import obtain_auth_token
 
+# from rest_framework.authentication import TokenAuthentication
+
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views import MyTokenObtainPairView
 
