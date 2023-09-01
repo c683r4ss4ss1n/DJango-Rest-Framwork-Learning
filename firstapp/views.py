@@ -3,7 +3,8 @@ from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.models import User
-
+from .models import Contact
+from rest_framework.views import APIView
 
 def homeView(request):
     return render(request, 'index.html')
@@ -53,3 +54,37 @@ def registrationAPI(request):
         user.save()
 
         return Response({'Success' : 'User successfully registered'})
+    
+
+# def Contact(request):
+#     if request.method == 'POST':
+#         data = request.data
+
+#         name = data['name']
+#         email = data['email']
+#         subject = data['subject']
+#         phone = data['phone']
+#         details = data['details']
+
+#         contact = Contact(name=name, email=email,subject=subject, phone=phone, details=details)
+#         contact.save()
+
+#         return Response({'Success':'Successfully saved'})
+    
+class ContactAPIView(APIView):
+    permission_classes=[AllowAny,]
+    def post(self, request, format=None):
+        data = request.data
+
+        name = data['name']
+        email = data['email']
+        subject = data['subject']
+        phone = data['phone']
+        details = data['details']
+
+        contact = Contact(name=name, email=email,subject=subject, phone=phone, details=details)
+        contact.save()
+        return Response({'Success':'Succesfully Saved'})
+    
+    def get(self, request, format=None):
+            return Response({'Success':'Succesfully Saved From Get'})
