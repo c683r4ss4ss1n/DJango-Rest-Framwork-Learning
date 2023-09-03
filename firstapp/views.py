@@ -70,21 +70,37 @@ def registrationAPI(request):
 #         contact.save()
 
 #         return Response({'Success':'Successfully saved'})
+
+# Class Based  
+
+# class ContactAPIView(APIView):
+#     permission_classes=[AllowAny,]
+#     def post(self, request, format=None):
+#         data = request.data
+
+#         name = data['name']
+#         email = data['email']
+#         subject = data['subject']
+#         phone = data['phone']
+#         details = data['details']
+
+#         contact = Contact(name=name, email=email,subject=subject, phone=phone, details=details)
+#         contact.save()
+#         return Response({'Success':'Succesfully Saved'})
     
+#     def get(self, request, format=None):
+#             return Response({'Success':'Succesfully Saved From Get'})
+
+
+
+from .serializers import ContactSerializer, ContactForm
+
 class ContactAPIView(APIView):
     permission_classes=[AllowAny,]
     def post(self, request, format=None):
-        data = request.data
-
-        name = data['name']
-        email = data['email']
-        subject = data['subject']
-        phone = data['phone']
-        details = data['details']
-
-        contact = Contact(name=name, email=email,subject=subject, phone=phone, details=details)
-        contact.save()
-        return Response({'Success':'Succesfully Saved'})
-    
+        serializer = ContactSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data)
     def get(self, request, format=None):
-            return Response({'Success':'Succesfully Saved From Get'})
+        return Response({'success':'Successfully Saved from get!'})
