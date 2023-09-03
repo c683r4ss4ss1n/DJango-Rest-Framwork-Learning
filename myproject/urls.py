@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from firstapp.views import homeView
 from rest_framework.authtoken.views import obtain_auth_token
+from students import views
 
 # from rest_framework.authentication import TokenAuthentication
 
@@ -18,7 +19,11 @@ urlpatterns = [
     path('api/login-api/', obtain_auth_token),
 
     path('api/token/', MyTokenObtainPairView.as_view()),
-    path('api/token/refresh/', TokenRefreshView.as_view()),
+    path('api/token/refresh/', TokenRefreshView.as_view()),\
+    path('students/', views.student_info),
+    path('students/<int:pk>', views.student_instance),
+    # From Study Mart DRF Tutorial
+    
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
